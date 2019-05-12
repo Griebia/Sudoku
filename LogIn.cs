@@ -16,5 +16,24 @@ namespace Sudoku
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string username = textBox1.Text;
+            string password = textBox2.Text;
+
+            List<Player> users = PlayerDatabase.LoadPlayers();
+
+            foreach (var item in users)
+            {
+                if (item.Username == username && item.Password == password)
+                {
+                    var Game = new Game();
+                    Game.Size = this.Size;
+                    Game.Show();
+                    this.Hide();
+                }
+            }
+        }
     }
 }
