@@ -20,18 +20,20 @@ namespace Sudoku
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.Hide();
             var login = new LogIn();
             login.Size = this.Size;
-            login.Show();
-            this.Hide();
+            login.ShowDialog();
+            this.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.Hide();
             var register = new Register();
             register.Size = this.Size;
-            register.Show();
-            this.Hide();
+            register.ShowDialog();
+            this.Show();
         }
     }
 }

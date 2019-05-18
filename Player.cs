@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sudoku
 {
-    class Player
+    public class Player
     {
         public int Id { get; set; }
 
@@ -15,5 +15,14 @@ namespace Sudoku
         public string Password { get; set; }
 
         public int Score { get; set; }
+
+        public Player() { }
+
+        public Player(string Username, string Password) {
+            this.Username = Username;
+            this.Password = Password;
+            this.Score = 0;
+        }
+
     }
 }

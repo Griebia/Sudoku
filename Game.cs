@@ -12,6 +12,9 @@ namespace Sudoku
 {
     public partial class Game : Form
     {
+        public int removeNumber { get; set; }
+        public Player user { get; set; }
+
         Random rand = new Random();
         const int size = 9;
         const int height = 50; //The size of the grid(box sizes) 
@@ -31,14 +34,12 @@ namespace Sudoku
         public Game()
         {
             InitializeComponent();
-            MakeGrid();
-            GenerateSudoku();
         }
 
         public void GenerateSudoku()
         {
             RecursiveGeneration(0, 0);
-            RemoveNumbers(20);
+            RemoveNumbers(removeNumber);
             AddNumbersToGrid();
         }
 
@@ -101,25 +102,7 @@ namespace Sudoku
                 else
                     x--;
             }
-            //for (int i = 0; i < size; i++)
-            //{
-            //    for (int j = 0; j < size; j++)
-            //    {
-            //        System.Diagnostics.Debug.Write(numbers[i,j] + " ");
-            //    }
-            //    System.Diagnostics.Debug.WriteLine("");
-            //}
-            //System.Diagnostics.Debug.WriteLine("");
-            //if (notUse != null)
-            //{
-            //foreach (int item in notUse)
-            //{
-            //    System.Diagnostics.Debug.Write(item + " ");
-            //}
-            //}
 
-            //System.Diagnostics.Debug.WriteLine("");
-            //System.Diagnostics.Debug.WriteLine("");
             return RecursiveGeneration(x, y);
         }
 
@@ -304,6 +287,53 @@ namespace Sudoku
                     Controls.Add(grid[i, j]);
                 }
             }
+        }
+
+        private void Game_Load(object sender, EventArgs e)
+        {
+            MakeGrid();
+            GenerateSudoku();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            bool correct = true;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (int.Parse(grid[i,j].Text) != answers[i,j])
+                    {
+                        correct = false;
+                        grid[i, j].BackColor = Color.Red;
+                    }
+                }
+            }
+
+            if (correct)
+            {
+                // write to a label Congratulation you solved the sudoku correctly
+            }
+            else
+            {
+
+            }
+
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Game NewForm = new Game();
+            NewForm.Show();
+
+            this.Dispose(false);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //back
         }
     }
 }
