@@ -42,7 +42,7 @@
             // 
             // passBox1
             // 
-            this.passBox1.Location = new System.Drawing.Point(345, 215);
+            this.passBox1.Location = new System.Drawing.Point(344, 258);
             this.passBox1.Name = "passBox1";
             this.passBox1.PasswordChar = '*';
             this.passBox1.Size = new System.Drawing.Size(100, 20);
@@ -50,7 +50,7 @@
             // 
             // usernameBox
             // 
-            this.usernameBox.Location = new System.Drawing.Point(345, 160);
+            this.usernameBox.Location = new System.Drawing.Point(344, 203);
             this.usernameBox.Name = "usernameBox";
             this.usernameBox.Size = new System.Drawing.Size(100, 20);
             this.usernameBox.TabIndex = 9;
@@ -59,7 +59,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(342, 199);
+            this.label3.Location = new System.Drawing.Point(341, 242);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 8;
@@ -68,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(343, 144);
+            this.label2.Location = new System.Drawing.Point(342, 187);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 7;
@@ -88,7 +88,7 @@
             // 
             // passBox2
             // 
-            this.passBox2.Location = new System.Drawing.Point(345, 269);
+            this.passBox2.Location = new System.Drawing.Point(344, 312);
             this.passBox2.Name = "passBox2";
             this.passBox2.PasswordChar = '*';
             this.passBox2.Size = new System.Drawing.Size(100, 20);
@@ -97,7 +97,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(342, 253);
+            this.label4.Location = new System.Drawing.Point(341, 296);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(90, 13);
             this.label4.TabIndex = 11;
@@ -105,7 +105,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(299, 313);
+            this.button1.Location = new System.Drawing.Point(298, 356);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(99, 23);
             this.button1.TabIndex = 13;
@@ -116,14 +116,15 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(349, 119);
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(329, 117);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(0, 13);
             this.label5.TabIndex = 14;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(404, 313);
+            this.button2.Location = new System.Drawing.Point(403, 356);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(99, 23);
             this.button2.TabIndex = 15;
@@ -146,8 +147,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Register";
             this.Text = "Register";
+            this.Load += new System.EventHandler(this.Register_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

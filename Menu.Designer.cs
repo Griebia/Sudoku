@@ -37,13 +37,15 @@
             // 
             // label1
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.label1.Location = new System.Drawing.Point(329, 66);
+            this.label1.Location = new System.Drawing.Point(329, 69);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 37);
+            this.label1.Size = new System.Drawing.Size(167, 37);
             this.label1.TabIndex = 2;
+            this.label1.Text = "Welcome ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // comboBox1
@@ -100,6 +102,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Menu";
             this.Text = "Menu";
             this.Load += new System.EventHandler(this.Menu_Load);

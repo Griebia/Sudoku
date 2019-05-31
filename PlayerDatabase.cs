@@ -28,6 +28,14 @@ namespace Sudoku
             }
         }
 
+        public static void UpdateScore(Player player)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                cnn.Execute("UPDATE Player SET Score =@Score WHERE Username =@Username", player);
+            }
+        }
+
         private static string LoadConnectionString(string id = "Default"){
 
             return ConfigurationManager.ConnectionStrings[id].ConnectionString;

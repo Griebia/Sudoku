@@ -23,8 +23,15 @@ namespace Sudoku
             this.Hide();
             var login = new LogIn();
             login.Size = this.Size;
-            login.ShowDialog();
-            this.Show();
+            login.StartPosition = FormStartPosition.Manual;
+            login.Location = new Point(this.Location.X, this.Location.Y);
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                this.Size = login.Size;
+                this.Location = new Point(login.Location.X, login.Location.Y);
+                this.Show();
+            } 
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -32,8 +39,18 @@ namespace Sudoku
             this.Hide();
             var register = new Register();
             register.Size = this.Size;
-            register.ShowDialog();
-            this.Show();
+            register.StartPosition = FormStartPosition.Manual;
+            register.Location = new Point(this.Location.X, this.Location.Y);
+            if (register.ShowDialog() == DialogResult.OK)
+            {
+                this.Size = register.Size;
+                this.Location = new Point(register.Location.X, register.Location.Y);
+                this.Show();
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }

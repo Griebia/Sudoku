@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Sudoku
 {
@@ -141,7 +142,7 @@ namespace Sudoku
         void RemoveNumbers(int num)
         {
             int x, y;
-            answers = numbers;
+            answers = (int[,])numbers.Clone();
             for (int i = 0; i < num; i++)
             {
                 x = rand.Next(0, 9);
@@ -284,6 +285,15 @@ namespace Sudoku
                     grid[i, j].Location = new Point(j * height, i * height);
                     grid[i, j].Font = new Font("Arial", height - 20);
                     grid[i, j].TextAlign = HorizontalAlignment.Center;
+                    grid[i, j].MaxLength = 1;
+                    grid[i, j].KeyPress += delegate (object o, KeyPressEventArgs e)
+                    {
+                        if (!char.IsControl(e.KeyChar) && !char.IsNumber(e.KeyChar))
+                        {
+                            e.Handled = true;
+                        }
+                            
+                    };
                     Controls.Add(grid[i, j]);
                 }
             }
@@ -302,8 +312,10 @@ namespace Sudoku
             {
                 for (int j = 0; j < size; j++)
                 {
-                    if (int.Parse(grid[i,j].Text) != answers[i,j])
+                    if (grid[i, j].Text == "" || int.Parse(grid[i,j].Text) != answers[i,j])
                     {
+                        Debug.WriteLine(grid[i, j].Text);
+                        Debug.WriteLine(answers[i, j]);
                         correct = false;
                         grid[i, j].BackColor = Color.Red;
                     }
@@ -312,7 +324,11 @@ namespace Sudoku
 
             if (correct)
             {
+                user.Score++;
+                PlayerDatabase.UpdateScore(user);
+                label1.Text = "You won!!!\n Congratulations!!!";
                 // write to a label Congratulation you solved the sudoku correctly
+
             }
             else
             {
@@ -325,14 +341,18 @@ namespace Sudoku
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Game NewForm = new Game();
-            NewForm.Show();
-
-            this.Dispose(false);
+            Game_Load(this, null);
+            //Play again
+            //Game NewForm = new Game();
+            //NewForm.Show();
+            //NewForm.StartPosition = FormStartPosition.Manual;
+            //NewForm.Location = new Point(this.Location.X, this.Location.Y);
+            //this.Dispose(false);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.OK;
             //back
         }
     }

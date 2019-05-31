@@ -22,7 +22,7 @@ namespace Sudoku
             string username = textBox1.Text.ToLower();
             string password = textBox2.Text;
 
-            if (!LogInto(username, password)) {
+            if (!LogInto(username, password,this)) {
                 //Write that there is no such user
             }
         }
@@ -33,7 +33,7 @@ namespace Sudoku
         /// <param name="username">usename</param>
         /// <param name="password">password</param>
         /// <returns>Changes the view to the games if it is correct</returns>
-        public bool LogInto(string username, string password)
+        static public bool LogInto(string username, string password, Form name)
         {
             List<Player> users = PlayerDatabase.LoadPlayers();
 
@@ -41,10 +41,12 @@ namespace Sudoku
             {
                 if (item.Username == username && item.Password == password)
                 {
-                    this.Hide();
+                    name.Hide();
                     var Menu = new Menu();
                     Menu.user = item;
-                    Menu.Size = this.Size;
+                    Menu.Size = name.Size;
+                    Menu.StartPosition = FormStartPosition.Manual;
+                    Menu.Location = new Point(name.Location.X, name.Location.Y);
                     Menu.ShowDialog();
                     return true ;
                 }

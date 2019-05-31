@@ -37,6 +37,7 @@ namespace Sudoku
             else {
                 label5.Text = "Successfuly created account";
                 PlayerDatabase.SavePlayer(new Player(username, password));
+                LogIn.LogInto(username, password,this);
             }
         }
 
@@ -61,6 +62,11 @@ namespace Sudoku
         private void button2_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void Register_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
