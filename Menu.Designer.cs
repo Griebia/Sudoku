@@ -47,6 +47,7 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Welcome ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // comboBox1
             // 
@@ -60,6 +61,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 3;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // button1
             // 
@@ -79,6 +81,7 @@
             this.button2.TabIndex = 5;
             this.button2.Text = "Log Out";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label2
             // 
@@ -91,6 +94,7 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Score:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Menu
             // 
