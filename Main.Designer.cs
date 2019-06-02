@@ -33,6 +33,7 @@
             this.registerPannel = new System.Windows.Forms.Panel();
             this.menuPanel = new System.Windows.Forms.Panel();
             this.gamePanel = new System.Windows.Forms.Panel();
+            this.gameLabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.gameBackBtn = new System.Windows.Forms.Button();
             this.gamePlayAgainBtn = new System.Windows.Forms.Button();
@@ -62,7 +63,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.gameLabel = new System.Windows.Forms.Label();
+            this.loginLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.logInPannel.SuspendLayout();
             this.registerPannel.SuspendLayout();
@@ -72,7 +73,6 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.logInPannel);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
@@ -84,7 +84,7 @@
             // 
             // logInPannel
             // 
-            this.logInPannel.Controls.Add(this.registerPannel);
+            this.logInPannel.Controls.Add(this.loginLabel);
             this.logInPannel.Controls.Add(this.backLogInBtn);
             this.logInPannel.Controls.Add(this.logInBtn);
             this.logInPannel.Controls.Add(this.passwordLogInText);
@@ -100,7 +100,6 @@
             // 
             // registerPannel
             // 
-            this.registerPannel.Controls.Add(this.menuPanel);
             this.registerPannel.Controls.Add(this.registerBackBtn);
             this.registerPannel.Controls.Add(this.registerLabel);
             this.registerPannel.Controls.Add(this.registerBtn);
@@ -119,7 +118,6 @@
             // 
             // menuPanel
             // 
-            this.menuPanel.Controls.Add(this.gamePanel);
             this.menuPanel.Controls.Add(this.scoreMenuLabel);
             this.menuPanel.Controls.Add(this.logOutBtn);
             this.menuPanel.Controls.Add(this.playBtn);
@@ -143,7 +141,15 @@
             this.gamePanel.Name = "gamePanel";
             this.gamePanel.Size = new System.Drawing.Size(784, 461);
             this.gamePanel.TabIndex = 12;
-            this.gamePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.gamePanel_Paint);
+            this.gamePanel.Visible = false;
+            // 
+            // gameLabel
+            // 
+            this.gameLabel.AutoSize = true;
+            this.gameLabel.Location = new System.Drawing.Point(508, 142);
+            this.gameLabel.Name = "gameLabel";
+            this.gameLabel.Size = new System.Drawing.Size(0, 13);
+            this.gameLabel.TabIndex = 8;
             // 
             // label5
             // 
@@ -205,6 +211,7 @@
             this.logOutBtn.TabIndex = 10;
             this.logOutBtn.Text = "Log Out";
             this.logOutBtn.UseVisualStyleBackColor = true;
+            this.logOutBtn.Click += new System.EventHandler(this.logOutBtn_Click);
             // 
             // playBtn
             // 
@@ -434,24 +441,28 @@
             this.label1.Text = "Sudoku game";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // gameLabel
+            // loginLabel
             // 
-            this.gameLabel.AutoSize = true;
-            this.gameLabel.Location = new System.Drawing.Point(508, 142);
-            this.gameLabel.Name = "gameLabel";
-            this.gameLabel.Size = new System.Drawing.Size(41, 13);
-            this.gameLabel.TabIndex = 8;
-            this.gameLabel.Text = "label10";
+            this.loginLabel.AutoSize = true;
+            this.loginLabel.ForeColor = System.Drawing.Color.Red;
+            this.loginLabel.Location = new System.Drawing.Point(336, 162);
+            this.loginLabel.Name = "loginLabel";
+            this.loginLabel.Size = new System.Drawing.Size(0, 13);
+            this.loginLabel.TabIndex = 15;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.gamePanel);
+            this.Controls.Add(this.menuPanel);
+            this.Controls.Add(this.logInPannel);
+            this.Controls.Add(this.registerPannel);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Main";
-            this.Text = "Form2";
+            this.Text = "Sudoku";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.logInPannel.ResumeLayout(false);
@@ -503,5 +514,6 @@
         private System.Windows.Forms.Button gamePlayAgainBtn;
         private System.Windows.Forms.Button gameCheckBtn;
         private System.Windows.Forms.Label gameLabel;
+        private System.Windows.Forms.Label loginLabel;
     }
 }

@@ -35,15 +35,12 @@ namespace Sudoku
         private void button1_Click_1(object sender, EventArgs e)
         {
             closeAllPanels();
-            panel1.Visible = true;
             logInPannel.Visible = true;
         }
 
         private void button2_Click_1(object sender, EventArgs e)
         {
             closeAllPanels();
-            panel1.Visible = true;
-            logInPannel.Visible = true;
             registerPannel.Visible = true;
         }
 
@@ -54,16 +51,13 @@ namespace Sudoku
 
             if (!LogInto(username, password))
             {
-                //Write that there is no such user
+               loginLabel.Text = "Your username or password was wrong";
             }
         }
 
         private void showMenu()
         {
             closeAllPanels();
-            panel1.Visible = true;
-            logInPannel.Visible = true;
-            registerPannel.Visible = true;
             menuPanel.Visible = true;
             scoreMenuLabel.Text = "Score: " + user.Score;
             welcomeMenulabel.Text = "Welcome " + user.Username;
@@ -101,7 +95,12 @@ namespace Sudoku
         {
             string username = usernameRegisterBox.Text.ToLower();
             string password = passRegisterBox1.Text;
-            if (usernameCheck(username))
+
+            if (username == "" || passRegisterBox1.Text == "" ||passRegisterBox2.Text == "")
+            {
+                registerLabel.Text = "Please fill in all of the boxes!";
+            }
+            else if (usernameCheck(username))
             {
                 registerLabel.Text = "This usernames is already taken \n Please select a diffrent one";
             }
@@ -148,30 +147,27 @@ namespace Sudoku
                 switch (comboBox1.SelectedIndex)
                 {
                     case 1:
-                        removeNumber = 1;
+                        removeNumber = 20;
                         break;
                     case 2:
                         removeNumber = 30;
                         break;
                     case 3:
-                        removeNumber = 40;
+                        removeNumber = 36;
                         break;
                 }
-                if (comboBox1.SelectedIndex != 0)
+                if (comboBox1.SelectedIndex != 0 && comboBox1.SelectedIndex != -1)
                 {
                 closeAllPanels();
-                panel1.Visible = true;
-                logInPannel.Visible = true;
-                registerPannel.Visible = true;
-                menuPanel.Visible = true;
                 gamePanel.Visible = true;
                 buildSudoku();
-                //Change to play the game
+                
             }
             }
 
         private void gameCheckBtn_Click(object sender, EventArgs e)
         {
+            gameCheckBtn.Visible = false;
             bool correct = true;
             for (int i = 0; i < size; i++)
             {
@@ -179,8 +175,6 @@ namespace Sudoku
                 {
                     if (grid[i, j].Text == "" || int.Parse(grid[i, j].Text) != answers[i, j])
                     {
-                        Debug.WriteLine(grid[i, j].Text);
-                        Debug.WriteLine(answers[i, j]);
                         correct = false;
                         grid[i, j].BackColor = Color.Red;
                     }
@@ -197,13 +191,13 @@ namespace Sudoku
             }
             else
             {
-
+                gameLabel.Text = "There were wrong numbers added in red boxes.\n Good luck next time.";
             }
         }
 
         private void gamePlayAgainBtn_Click(object sender, EventArgs e)
         {
-
+            buildSudoku();
         }
 
         private void gameBackBtn_Click(object sender, EventArgs e)
@@ -211,20 +205,16 @@ namespace Sudoku
             showMenu();
         }
 
-        private void gamePanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
+        
 
         /////////////////////////////////////////////////////Game Logic/////////////////////////////////////////////////////////////
         public int removeNumber;
         
-        Random rand = new Random();
+        static Random rand = new Random();
         const int size = 9;
         const int height = 50; //The size of the grid(box sizes) 
-        private int[,] numbers = new int[size, size];
-        private int[,] answers = new int[size, size];
+        private int[,] numbers;
+        private int[,] answers;
         //private int[,] numbers = { {5,3,4,6,7,8,9,1,2},
         //                           {6,7,2,1,9,5,3,4,8},
         //                           {1,9,8,3,4,2,5,6,7},
@@ -234,11 +224,22 @@ namespace Sudoku
         //                           {9,6,1,5,3,7,2,8,4},
         //                           {2,8,7,4,1,9,6,3,5},
         //                           {3,4,5,2,8,6,1,7,9}};
-        List<int>[,] notGood = new List<int>[size, size];
-        private TextBox[,] grid = new TextBox[size, size];
+        List<int>[,] notGood;
+        private TextBox[,] grid;
 
         private void buildSudoku()
         {
+            gameCheckBtn.Visible = true;
+            gameLabel.Text = "";
+            //Removes all of the added textbox elements (grid) from the visualization
+            foreach (Control item in gamePanel.Controls.OfType<TextBox>().ToList())
+            {
+                gamePanel.Controls.Remove(item);
+            }
+            numbers = new int[size, size];
+            answers = new int[size, size];
+            notGood = new List<int>[size, size];
+            grid = new TextBox[size, size];
             MakeGrid();
             GenerateSudoku();
         }
@@ -466,6 +467,7 @@ namespace Sudoku
                     {
                         grid[i, j].Text = numbers[i, j].ToString();
                         grid[i, j].BackColor = Color.BlueViolet;
+                        grid[i, j].ReadOnly = true;
                     }
                     else
                     {
@@ -505,6 +507,14 @@ namespace Sudoku
                 }
             }
         }
+
+        private void logOutBtn_Click(object sender, EventArgs e)
+        {
+            user = null;
+            closeAllPanels();
+            panel1.Visible = true;
+        }
+
     }
     }
 
