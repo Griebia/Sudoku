@@ -13,7 +13,7 @@ namespace Sudoku
 {
     public partial class Main : Form
     {
-        Player user;
+        Player user;//Main usage of user
 
 
         public Main()
@@ -23,6 +23,9 @@ namespace Sudoku
             panel1.Visible = true;
         }
 
+        /// <summary>
+        /// Makes all of the panels not visable
+        /// </summary>
         private void closeAllPanels()
         {
             panel1.Visible = false;
@@ -32,18 +35,34 @@ namespace Sudoku
             gamePanel.Visible = false;
         }
 
+        /// <summary>
+        /// Button click which opens up the log in panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click_1(object sender, EventArgs e)
         {
             closeAllPanels();
             logInPannel.Visible = true;
         }
 
+        /// <summary>
+        /// Button click which opens up the register panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click_1(object sender, EventArgs e)
         {
             closeAllPanels();
             registerPannel.Visible = true;
         }
 
+
+        /// <summary>
+        /// Button click of pressing "Log in" in log in panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void logInBtn_Click(object sender, EventArgs e)
         {
             string username = usernameLogInText.Text.ToLower();
@@ -51,10 +70,14 @@ namespace Sudoku
 
             if (!LogInto(username, password))
             {
-               loginLabel.Text = "Your username or password was wrong";
+                loginLabel.Text = "Your username or password was wrong";
             }
         }
 
+
+        /// <summary>
+        /// Function that when called opens menu panel and sets the information in it
+        /// </summary>
         private void showMenu()
         {
             closeAllPanels();
@@ -68,7 +91,7 @@ namespace Sudoku
         /// <param name="username">usename</param>
         /// <param name="password">password</param>
         /// <returns>Changes the view to the games if it is correct</returns>
-         public bool LogInto(string username, string password)
+        public bool LogInto(string username, string password)
         {
             List<Player> users = PlayerDatabase.LoadPlayers();
 
@@ -85,18 +108,30 @@ namespace Sudoku
             return false;
         }
 
+        /// <summary>
+        /// Back button from login panel to the main one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void backLogInBtn_Click(object sender, EventArgs e)
         {
             closeAllPanels();
             panel1.Visible = true;
         }
 
+
+        /// <summary>
+        /// Button click of "Register" button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void registerBtn_Click(object sender, EventArgs e)
         {
             string username = usernameRegisterBox.Text.ToLower();
             string password = passRegisterBox1.Text;
 
-            if (username == "" || passRegisterBox1.Text == "" ||passRegisterBox2.Text == "")
+            //If that look if the textboxes are correctly filled in
+            if (username == "" || passRegisterBox1.Text == "" || passRegisterBox2.Text == "")
             {
                 registerLabel.Text = "Please fill in all of the boxes!";
             }
@@ -111,6 +146,7 @@ namespace Sudoku
             else
             {
                 passRegisterBox1.Text = "Successfuly created account";
+                //Puts new entery to the database and logs the user in
                 PlayerDatabase.SavePlayer(new Player(username, password));
                 LogInto(username, password);
             }
@@ -135,36 +171,52 @@ namespace Sudoku
             return false;
         }
 
+        /// <summary>
+        /// Back button in register panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void registerBackBtn_Click(object sender, EventArgs e)
         {
             closeAllPanels();
             panel1.Visible = true;
         }
 
+        /// <summary>
+        /// Play button in menu panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void playBtn_Click(object sender, EventArgs e)
         {
-                
-                switch (comboBox1.SelectedIndex)
-                {
-                    case 1:
-                        removeNumber = 20;
-                        break;
-                    case 2:
-                        removeNumber = 30;
-                        break;
-                    case 3:
-                        removeNumber = 36;
-                        break;
-                }
-                if (comboBox1.SelectedIndex != 0 && comboBox1.SelectedIndex != -1)
-                {
+            //Switches from the selected difficulty
+            switch (comboBox1.SelectedIndex)
+            {
+                case 1:
+                    removeNumber = 20;
+                    break;
+                case 2:
+                    removeNumber = 30;
+                    break;
+                case 3:
+                    removeNumber = 36;
+                    break;
+            }
+            //Looks if the difficulty is picked
+            if (comboBox1.SelectedIndex != 0 && comboBox1.SelectedIndex != -1)
+            {
                 closeAllPanels();
                 gamePanel.Visible = true;
                 buildSudoku();
-                
-            }
-            }
 
+            }
+        }
+
+        /// <summary>
+        /// Button that checks if the sudoku is solved
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gameCheckBtn_Click(object sender, EventArgs e)
         {
             gameCheckBtn.Visible = false;
@@ -180,7 +232,7 @@ namespace Sudoku
                     }
                 }
             }
-
+            //If true it adds to the user score
             if (correct)
             {
                 user.Score++;
@@ -195,40 +247,49 @@ namespace Sudoku
             }
         }
 
+        /// <summary>
+        /// Button click when pressed "Play again" in game panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gamePlayAgainBtn_Click(object sender, EventArgs e)
         {
             buildSudoku();
         }
 
+
+        /// <summary>
+        /// Back button in game panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void gameBackBtn_Click(object sender, EventArgs e)
         {
             showMenu();
         }
 
-        
+
 
         /////////////////////////////////////////////////////Game Logic/////////////////////////////////////////////////////////////
-        public int removeNumber;
-        
-        static Random rand = new Random();
-        const int size = 9;
-        const int height = 50; //The size of the grid(box sizes) 
-        private int[,] numbers;
-        private int[,] answers;
-        //private int[,] numbers = { {5,3,4,6,7,8,9,1,2},
-        //                           {6,7,2,1,9,5,3,4,8},
-        //                           {1,9,8,3,4,2,5,6,7},
-        //                           {8,5,9,7,6,1,4,2,3},
-        //                           {4,2,6,8,5,3,7,9,1},
-        //                           {7,1,3,9,2,4,8,5,6},
-        //                           {9,6,1,5,3,7,2,8,4},
-        //                           {2,8,7,4,1,9,6,3,5},
-        //                           {3,4,5,2,8,6,1,7,9}};
-        List<int>[,] notGood;
-        private TextBox[,] grid;
 
+
+
+        public int removeNumber;            //Number that represents how many of numbers there is a need to dispose (It is set when the button is pressed in the menu panel)
+        static Random rand = new Random();  //Random number generator
+        const int size = 9;                 // Size of the grid in sudoku (9x9)
+        const int height = 50;              //The size of the grid(box sizes) 
+        private int[,] numbers;             //The numbers that are added to the grid
+        private int[,] answers;             //The numbers that are later used to check if it is all right
+        List<int>[,] notGood;               //List of numbers in specific place where they cannot be put
+        private TextBox[,] grid;            //Grid that adds that shows the sudoku element
+
+
+        /// <summary>
+        /// Builds the sudoku in game panel
+        /// </summary>
         private void buildSudoku()
         {
+            //Resets the elements in the game panel
             gameCheckBtn.Visible = true;
             gameLabel.Text = "";
             //Removes all of the added textbox elements (grid) from the visualization
@@ -236,18 +297,27 @@ namespace Sudoku
             {
                 gamePanel.Controls.Remove(item);
             }
+            //Clears/creates old/new information
             numbers = new int[size, size];
             answers = new int[size, size];
             notGood = new List<int>[size, size];
             grid = new TextBox[size, size];
+            //Makes the grid in which the sudoku is places
             MakeGrid();
+            //Generates sudoku
             GenerateSudoku();
         }
 
+        /// <summary>
+        /// Generates sudoku in the given grid
+        /// </summary>
         public void GenerateSudoku()
         {
+            //Recursively generates the sudoku from specified place
             RecursiveGeneration(0, 0);
+            //Removes the numbers count by the difficulty
             RemoveNumbers(removeNumber);
+            //Adds the numbers to the gird
             AddNumbersToGrid();
         }
 
@@ -314,8 +384,13 @@ namespace Sudoku
             return RecursiveGeneration(x, y);
         }
 
-        //Not tested if it works
-
+        /// <summary>
+        /// Generates the numbers that cannot be used in a specific point
+        /// </summary>
+        /// <param name="num"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns>Return a list of int that contains numbers that cannot be usesd</returns>
         public List<int> MakeNotUsedNumbers(ref int[,] num, int x, int y)
         {
             //Adds all of the numbers from the box
@@ -502,12 +577,18 @@ namespace Sudoku
                         }
 
                     };
-                 
+
                     gamePanel.Controls.Add(grid[i, j]);
                 }
             }
         }
 
+
+        /// <summary>
+        /// Button click when presed to log out in menu panel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void logOutBtn_Click(object sender, EventArgs e)
         {
             user = null;
@@ -516,5 +597,5 @@ namespace Sudoku
         }
 
     }
-    }
+}
 
