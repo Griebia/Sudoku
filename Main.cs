@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/// Created by Gabrielius Ulejevas
+
 namespace Sudoku
 {
     public partial class Main : Form
